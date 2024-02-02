@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source "$CURRENT_DIR/scripts/variables.sh"
 source "$CURRENT_DIR/scripts/helpers.sh"
@@ -9,7 +9,7 @@ set_save_bindings() {
 	local key_bindings=$(get_tmux_option "$save_option" "$default_save_key")
 	local key
 	for key in $key_bindings; do
-		tmux bind-key "$key" run-shell "$CURRENT_DIR/scripts/save.sh"
+		tmux bind-key "$key" confirm -p "Save Session? [y/n]" "run-shell '$CURRENT_DIR/scripts/save.sh'"
 	done
 }
 
